@@ -6,6 +6,7 @@ import MementoMoriSection from "@/components/MementoMoriSection";
 import TestimonialsSection from "@/components/TestimonialsSection";
 import EventsSection from "@/components/EventsSection";
 import InterviewsSection from "@/components/InterviewsSection";
+import AboutTitleSection from "@/components/AboutTitleSection";
 import ContactSection from "@/components/ContactSection";
 
 const Index = () => {
@@ -19,6 +20,7 @@ const Index = () => {
       <TestimonialsSection />
       <EventsSection />
       <InterviewsSection />
+      <AboutTitleSection />
       <ContactSection />
     </main>
   );

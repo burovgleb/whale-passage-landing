@@ -14,7 +14,7 @@ const MementoMoriSection = () => {
   };
 
   return (
-    <section className="section-padding bg-background">
+    <section id="first-contact" className="section-padding bg-background">
       <div ref={ref} className="mx-auto max-w-3xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

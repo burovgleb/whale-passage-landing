@@ -5,12 +5,24 @@ import { Volume2, VolumeX } from "lucide-react";
 const HeroSection = () => {
   const [isMuted, setIsMuted] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const audioRef = useRef<HTMLAudioElement>(null);
 
-  const toggleSound = () => {
-    if (videoRef.current) {
-      videoRef.current.muted = !videoRef.current.muted;
-      setIsMuted(!isMuted);
+  const toggleSound = async () => {
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    if (isMuted) {
+      try {
+        await audio.play();
+        setIsMuted(false);
+      } catch (error) {
+        console.error("Audio playback failed:", error);
+      }
+      return;
     }
+
+    audio.pause();
+    setIsMuted(true);
   };
 
   return (
@@ -25,6 +37,9 @@ const HeroSection = () => {
       >
         <source src="/video/hero.mp4" type="video/mp4" />
       </video>
+      <audio ref={audioRef} loop preload="metadata">
+        <source src="/audio/hero-whale-audio.mp3" type="audio/mpeg" />
+      </audio>
 
       <div className="absolute inset-0 bg-gradient-to-b from-ocean-deep/40 via-transparent to-ocean-deep/80" />
 

@@ -26,6 +26,16 @@ const QuoteSection = () => {
         <p className="text-serif text-4xl font-light italic text-primary-foreground md:text-6xl lg:text-7xl">
           «Ты будешь моим китом?»
         </p>
+
+        <motion.a
+          href="#first-contact"
+          initial={{ opacity: 0 }}
+          animate={isInView ? { opacity: 1 } : {}}
+          transition={{ duration: 0.8, delay: 0.5 }}
+          className="mt-36 inline-block border border-primary-foreground/70 px-8 py-3 text-xs font-medium uppercase tracking-[0.2em] text-primary-foreground transition-all hover:bg-primary-foreground hover:text-ocean-deep"
+        >
+          Ответить «Да»
+        </motion.a>
       </motion.blockquote>
     </section>
   );

@@ -14,7 +14,7 @@ const ContactSection = () => {
   };
 
   return (
-    <section className="section-padding bg-ocean-deep">
+    <section id="contact" className="section-padding bg-ocean-deep">
       <div ref={ref} className="mx-auto max-w-lg text-center">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -40,7 +40,7 @@ const ContactSection = () => {
               <p className="mt-2 text-sm text-ocean-light/60">Мы обязательно ответим вам</p>
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="space-y-4 text-left">
+            <form id="contact-form" onSubmit={handleSubmit} className="space-y-4 text-left">
               <input
                 type="text"
                 placeholder="Имя"

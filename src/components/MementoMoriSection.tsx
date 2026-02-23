@@ -68,8 +68,19 @@ const MementoMoriSection = () => {
             Сессия Memento Mori — это 1,5–3 часа разговора о своей смерти, непринужденного, откровенного.
             Это начало личного исследования своих отношений со смертью.
           </p>
-          <p className="mt-8 text-center text-sm font-medium tracking-wider text-foreground">
+          <p className="mt-10 text-center text-serif text-2xl font-light text-foreground md:text-3xl">
             Стоимость: 50 000 ₽
+          </p>
+          <p className="text-serif mt-6 text-center text-lg leading-relaxed text-muted-foreground md:text-xl">
+            Для тех, кто был на нашем мероприятии{" "}
+            <a
+              href="#events"
+              className="text-foreground underline decoration-foreground/35 underline-offset-4 transition-colors hover:decoration-foreground/70"
+            >
+              «Живые разговоры о Смерти»
+            </a>
+            , в течение месяца после события действует специальная цена на
+            сессию — 25 000 руб.
           </p>
         </motion.div>
 

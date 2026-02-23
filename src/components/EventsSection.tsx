@@ -70,7 +70,7 @@ const EventsSection = () => {
                 Следующая встреча
               </p>
               <h3 className="text-serif mb-4 text-xl font-light text-muted-foreground md:text-2xl">
-                Весна 2025
+                Весна 2026
               </h3>
               <p className="text-serif text-base leading-relaxed text-muted-foreground">
                 Мы уже готовим её. Если вы хотите присоединиться —

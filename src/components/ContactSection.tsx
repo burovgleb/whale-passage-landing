@@ -122,7 +122,7 @@ const ContactSection = () => {
             ККУ | Когда Киты Уходят
           </p>
           <p className="mt-2 text-xs text-ocean-light/20">
-            © 2025. Все права защищены.
+            © 2026. Все права защищены.
           </p>
         </motion.footer>
       </div>

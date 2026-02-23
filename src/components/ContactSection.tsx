@@ -1,16 +1,39 @@
 import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
+import { submitForm } from "@/lib/forms-api";
 
 const ContactSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
 
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [form, setForm] = useState({ name: "", email: "", message: "", website: "" });
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setSubmitError(null);
+    setIsSubmitting(true);
+
+    const result = await submitForm("contact", {
+      source: "contact",
+      name: form.name,
+      email: form.email,
+      message: form.message,
+      pageUrl: window.location.href,
+      userAgent: window.navigator.userAgent,
+      submittedAt: new Date().toISOString(),
+      hp: form.website,
+    });
+
+    setIsSubmitting(false);
+    if (result.ok) {
+      setSubmitted(true);
+      return;
+    }
+
+    setSubmitError(result.message || "Не удалось отправить форму. Попробуйте снова.");
   };
 
   return (
@@ -43,6 +66,16 @@ const ContactSection = () => {
             <form id="contact-form" onSubmit={handleSubmit} className="space-y-4 text-left">
               <input
                 type="text"
+                name="website"
+                tabIndex={-1}
+                autoComplete="off"
+                value={form.website}
+                onChange={(e) => setForm({ ...form, website: e.target.value })}
+                aria-hidden="true"
+                className="pointer-events-none absolute -left-[9999px] h-0 w-0 opacity-0"
+              />
+              <input
+                type="text"
                 placeholder="Имя"
                 required
                 value={form.name}
@@ -65,11 +98,15 @@ const ContactSection = () => {
                 onChange={(e) => setForm({ ...form, message: e.target.value })}
                 className="w-full resize-none border-b border-ocean-light/20 bg-transparent px-0 py-3 text-sm text-primary-foreground placeholder:text-ocean-light/40 focus:border-ocean-light/60 focus:outline-none transition-colors"
               />
+              {submitError ? (
+                <p className="text-sm text-red-300">{submitError}</p>
+              ) : null}
               <button
                 type="submit"
+                disabled={isSubmitting}
                 className="mt-6 w-full border border-ocean-light/30 bg-transparent py-3 text-xs font-medium uppercase tracking-[0.2em] text-primary-foreground transition-all hover:bg-primary-foreground/10"
               >
-                Отправить
+                {isSubmitting ? "Отправка..." : submitError ? "Повторить отправку" : "Отправить"}
               </button>
             </form>
           )}

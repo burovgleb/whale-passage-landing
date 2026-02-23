@@ -1,16 +1,39 @@
 import { motion, useInView } from "framer-motion";
 import { useRef, useState } from "react";
+import { submitForm } from "@/lib/forms-api";
 
 const InterviewsSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
 
-  const [form, setForm] = useState({ name: "", contact: "", guest: "" });
+  const [form, setForm] = useState({ name: "", contact: "", guest: "", website: "" });
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setSubmitError(null);
+    setIsSubmitting(true);
+
+    const result = await submitForm("interview_guest", {
+      source: "interview_guest",
+      name: form.name,
+      contact: form.contact,
+      guest: form.guest,
+      pageUrl: window.location.href,
+      userAgent: window.navigator.userAgent,
+      submittedAt: new Date().toISOString(),
+      hp: form.website,
+    });
+
+    setIsSubmitting(false);
+    if (result.ok) {
+      setSubmitted(true);
+      return;
+    }
+
+    setSubmitError(result.message || "Не удалось отправить форму. Попробуйте снова.");
   };
 
   return (
@@ -89,6 +112,16 @@ const InterviewsSection = () => {
               <form onSubmit={handleSubmit} className="space-y-4">
                 <input
                   type="text"
+                  name="website"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  value={form.website}
+                  onChange={(e) => setForm({ ...form, website: e.target.value })}
+                  aria-hidden="true"
+                  className="pointer-events-none absolute -left-[9999px] h-0 w-0 opacity-0"
+                />
+                <input
+                  type="text"
                   placeholder="Ваше имя"
                   required
                   value={form.name}
@@ -113,11 +146,19 @@ const InterviewsSection = () => {
                   onChange={(e) => setForm({ ...form, guest: e.target.value })}
                   className="w-full resize-none border-b border-border bg-transparent px-0 py-3 text-sm text-foreground placeholder:text-muted-foreground/60 focus:border-foreground focus:outline-none transition-colors"
                 />
+                {submitError ? (
+                  <p className="text-sm text-red-600">{submitError}</p>
+                ) : null}
                 <button
                   type="submit"
+                  disabled={isSubmitting}
                   className="mt-6 w-full border border-foreground bg-transparent py-3 text-xs font-medium uppercase tracking-[0.2em] text-foreground transition-all hover:bg-foreground hover:text-background"
                 >
-                  Отправить предложение
+                  {isSubmitting
+                    ? "Отправка..."
+                    : submitError
+                      ? "Повторить отправку"
+                      : "Отправить предложение"}
                 </button>
               </form>
             )}

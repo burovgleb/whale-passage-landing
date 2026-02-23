@@ -5,6 +5,7 @@ interface Quote {
   paragraphs: string[];
   author: string;
   previewLength?: number; // chars threshold for "read more"
+  previewText?: string;
 }
 
 const quotes: Quote[] = [
@@ -32,6 +33,8 @@ const quotes: Quote[] = [
     ],
     author: "Елена Соловьева",
     previewLength: 120,
+    previewText:
+      "Впервые со смертью я встретилась, наверное, когда родилась. Я думаю, что мы рождаемся и умираем каждое мгновение.",
   },
   {
     paragraphs: [
@@ -41,6 +44,8 @@ const quotes: Quote[] = [
     ],
     author: "Елена Соловьева",
     previewLength: 200,
+    previewText:
+      "У Даши есть программа «Лосось», впервые я услышала рассуждения Даши на тему смерти именно там. Потом я прошла сессию. Мгновенно все встало на свои места – кто для меня дорог и важен, чем я хочу заниматься, как жить.",
   },
 ];
 
@@ -60,11 +65,32 @@ function getPreviewText(paragraphs: string[], maxChars: number): string {
   return paragraphs.join(" ");
 }
 
+const fullTextVariants = {
+  collapsed: {
+    height: 0,
+    opacity: 0,
+    transition: {
+      height: { duration: 0.35, ease: "easeInOut" },
+      opacity: { duration: 0.15, ease: "easeOut" },
+    },
+  },
+  expanded: {
+    height: "auto",
+    opacity: 1,
+    transition: {
+      height: { duration: 0.45, ease: "easeInOut" },
+      opacity: { duration: 0.25, delay: 0.2, ease: "easeOut" },
+    },
+  },
+};
+
 const QuoteCard = ({ quote, index }: { quote: Quote; index: number }) => {
   const [expanded, setExpanded] = useState(false);
   const fullText = quote.paragraphs.join(" ");
   const needsExpand = quote.previewLength && fullText.length > quote.previewLength;
-  const preview = needsExpand ? getPreviewText(quote.paragraphs, quote.previewLength!) : null;
+  const preview = needsExpand
+    ? quote.previewText ?? getPreviewText(quote.paragraphs, quote.previewLength!)
+    : null;
 
   return (
     <motion.blockquote
@@ -80,13 +106,17 @@ const QuoteCard = ({ quote, index }: { quote: Quote; index: number }) => {
         </p>
       ) : (
         <>
-          <AnimatePresence mode="wait">
+          <AnimatePresence initial={false} mode="sync">
             {!expanded ? (
               <motion.p
                 key="preview"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{
+                  duration: 0.25,
+                  ease: "easeOut",
+                }}
                 className="text-serif text-lg leading-relaxed text-foreground/80 md:text-xl"
               >
                 «{preview}
@@ -94,11 +124,11 @@ const QuoteCard = ({ quote, index }: { quote: Quote; index: number }) => {
             ) : (
               <motion.div
                 key="full"
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: "auto" }}
-                exit={{ opacity: 0, height: 0 }}
-                transition={{ duration: 0.5, ease: "easeInOut" }}
-                className="space-y-4"
+                variants={fullTextVariants}
+                initial="collapsed"
+                animate="expanded"
+                exit="collapsed"
+                className="space-y-4 overflow-hidden"
               >
                 {quote.paragraphs.map((p, i) => (
                   <p

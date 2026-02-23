@@ -71,3 +71,57 @@ Yes, you can!
 To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
 
 Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+
+## Forms Integration (Google Sheets + Telegram)
+
+This project sends all form submissions to a Google Apps Script webhook:
+- `contact`
+- `memento_mori`
+- `interview_guest`
+
+Webhook behavior:
+1. validates payload,
+2. appends row to Google Sheets,
+3. sends Telegram notification to one group/channel,
+4. applies honeypot + rate limit.
+
+### 1) Configure frontend env
+
+1. Copy `.env.example` to `.env`.
+2. Set:
+
+```bash
+VITE_FORMS_WEBHOOK_URL=https://script.google.com/macros/s/YOUR_DEPLOYMENT_ID/exec
+```
+
+### 2) Create Google Apps Script webhook
+
+1. Open [Google Apps Script](https://script.google.com/), create a project.
+2. Copy code from `docs/google-apps-script/Code.gs`.
+3. In **Project Settings > Script properties**, add:
+   - `TELEGRAM_BOT_TOKEN`
+   - `TELEGRAM_CHAT_ID`
+   - `SHEET_ID`
+   - `RATE_LIMIT_WINDOW_SEC` (optional, default `60`)
+   - `RATE_LIMIT_MAX_PER_IP` (optional, default `3`)
+4. Deploy as **Web App**:
+   - Execute as: `Me`
+   - Who has access: `Anyone`
+5. Copy the `/exec` URL into `VITE_FORMS_WEBHOOK_URL`.
+
+### 3) Prepare Google Sheets
+
+Use one spreadsheet (`SHEET_ID`). The script will auto-create tabs and headers:
+- `contact`
+- `memento_mori`
+- `interview_guest`
+- `logs`
+
+### 4) Verify
+
+1. Run frontend (`npm run dev`).
+2. Submit each form once.
+3. Confirm:
+   - new rows in corresponding sheet tabs,
+   - Telegram notification arrives,
+   - hidden honeypot field blocks bot-like submissions.

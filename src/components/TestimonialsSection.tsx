@@ -3,6 +3,10 @@ import { useRef } from "react";
 
 const testimonials = [
   {
+    author: "Анастасия Нифонтова",
+    audioUrl: "/audio/memento-mori-otzyv-anastasiya-nifontova.mp3",
+  },
+  {
     text: "Появилось уважение и почтение к смерти. Ощущение что в груди стало больше воздуха и желание творить, создавать, узнавать.",
     author: "Анна Иванова",
   },
@@ -50,9 +54,21 @@ const TestimonialsSection = () => {
               transition={{ duration: 0.6, delay: i * 0.15 }}
               className="rounded-sm border border-border bg-card p-8"
             >
-              <p className="text-serif text-lg leading-relaxed text-foreground/80">
-                «{t.text}»
-              </p>
+              {t.audioUrl ? (
+                <div className="space-y-4">
+                  <p className="text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">
+                    Аудиоотзыв
+                  </p>
+                  <audio controls preload="none" className="w-full">
+                    <source src={t.audioUrl} type="audio/mpeg" />
+                    Ваш браузер не поддерживает воспроизведение аудио.
+                  </audio>
+                </div>
+              ) : (
+                <p className="text-serif text-lg leading-relaxed text-foreground/80">
+                  «{t.text}»
+                </p>
+              )}
               <p className="mt-6 text-xs font-medium tracking-wider text-muted-foreground">
                 — {t.author}
               </p>

@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { Volume2, VolumeX } from "lucide-react";
 
@@ -6,6 +6,44 @@ const HeroSection = () => {
   const [isMuted, setIsMuted] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
   const audioRef = useRef<HTMLAudioElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const tryPlay = () => {
+      video.muted = true;
+      video.defaultMuted = true;
+      video.playsInline = true;
+      video.setAttribute("playsinline", "");
+      video.setAttribute("webkit-playsinline", "true");
+      video.setAttribute("x5-playsinline", "true");
+
+      const playPromise = video.play();
+      if (playPromise && typeof playPromise.catch === "function") {
+        playPromise.catch(() => {
+          // Some mobile browsers (e.g. iOS low power mode) can still block autoplay.
+        });
+      }
+    };
+
+    const handleVisibility = () => {
+      if (!document.hidden && video.paused) {
+        tryPlay();
+      }
+    };
+
+    tryPlay();
+    video.addEventListener("loadeddata", tryPlay);
+    video.addEventListener("canplay", tryPlay);
+    document.addEventListener("visibilitychange", handleVisibility);
+
+    return () => {
+      video.removeEventListener("loadeddata", tryPlay);
+      video.removeEventListener("canplay", tryPlay);
+      document.removeEventListener("visibilitychange", handleVisibility);
+    };
+  }, []);
 
   const toggleSound = async () => {
     const audio = audioRef.current;
@@ -33,6 +71,9 @@ const HeroSection = () => {
         loop
         muted
         playsInline
+        preload="auto"
+        controls={false}
+        disablePictureInPicture
         className="absolute inset-0 h-full w-full object-cover opacity-70"
       >
         <source src="/video/hero.mp4" type="video/mp4" />

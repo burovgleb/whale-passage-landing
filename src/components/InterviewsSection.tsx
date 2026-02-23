@@ -61,7 +61,7 @@ const InterviewsSection = () => {
         >
           <div className="space-y-6 text-center">
             <p className="text-serif text-lg leading-relaxed text-muted-foreground md:text-xl">
-              На протяжении 25 лет мы исследуем тему смерти. Один из важнейших
+              На протяжении 20 лет мы исследуем тему смерти. Один из важнейших
               аспектов этой работы — трансформация наших отношений со смертью
               на уровне культуры.
             </p>

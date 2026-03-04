@@ -35,48 +35,55 @@ const EventsSection = () => {
           transition={{ duration: 0.8, delay: 0.2 }}
           className="grid grid-cols-1 gap-6 md:grid-cols-2"
         >
-          {/* Актуальная встреча */}
-          <div className="rounded-sm border border-foreground p-8">
+          {/* Первая встреча (завершена) */}
+          <div className="flex flex-col rounded-sm border border-border bg-ocean-fog p-8">
             <p className="mb-1 text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">
               Первая встреча из цикла
             </p>
-            <h3 className="text-serif mb-4 text-xl font-light text-foreground md:text-2xl">
+            <h3 className="text-serif mb-4 text-xl font-light text-muted-foreground md:text-2xl">
               Живые разговоры о смерти
             </h3>
-            <p className="text-serif mb-2 text-base leading-relaxed text-foreground">
+            <p className="text-serif text-base leading-relaxed text-muted-foreground">
               С врачом-психиатром <strong>Натальей Бехтеревой</strong> и философом
               и культурологом <strong>Андреем Макаровым</strong>
             </p>
-            <p className="mb-1 text-sm font-medium text-foreground">
+            <p className="mt-4 text-sm font-medium text-foreground">
               23 февраля
             </p>
-            <p className="mb-6 text-sm text-muted-foreground">
+            <p className="text-sm text-muted-foreground">
               Музей-квартира академика Н.П. Бехтеревой
             </p>
+            <span className="mt-6 inline-flex self-start rounded-full border border-border bg-background/70 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">
+              Завершено
+            </span>
+          </div>
+
+          {/* Вторая встреча */}
+          <div className="flex flex-col rounded-sm border border-foreground bg-background p-8">
+            <div>
+              <p className="mb-1 text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">
+                Вторая встреча из цикла
+              </p>
+              <h3 className="text-serif mb-4 text-xl font-light text-foreground md:text-2xl">
+                Живые разговоры о смерти
+              </h3>
+              <p className="text-serif text-base leading-relaxed text-foreground">
+                С врачом-психиатром <strong>Натальей Бехтеревой</strong> и{" "}
+                <strong>Ярославом Красновым</strong>
+              </p>
+              <p className="mt-4 text-sm font-medium text-foreground">30 марта</p>
+              <p className="text-sm text-muted-foreground">
+                Музей-квартира академика Н.П. Бехтеревой
+              </p>
+            </div>
             <a
-              href="https://kky-event.timepad.ru/event/3798947/"
+              href="https://kky-event.timepad.ru/event/3851932/"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-block border border-foreground px-8 py-3 text-xs font-medium uppercase tracking-[0.2em] text-foreground transition-all hover:bg-foreground hover:text-background"
+              className="mt-6 inline-flex self-start border border-foreground px-8 py-3 text-xs font-medium uppercase tracking-[0.2em] text-foreground transition-all hover:bg-foreground hover:text-background"
             >
               Регистрация
             </a>
-          </div>
-
-          {/* Анонс следующей встречи */}
-          <div className="flex flex-col justify-between rounded-sm border border-border bg-ocean-fog p-8">
-            <div>
-              <p className="mb-1 text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">
-                Следующая встреча
-              </p>
-              <h3 className="text-serif mb-4 text-xl font-light text-muted-foreground md:text-2xl">
-                Весна 2026
-              </h3>
-              <p className="text-serif text-base leading-relaxed text-muted-foreground">
-                Мы уже готовим её. Если вы хотите присоединиться —
-                воспользуйтесь формой обратной связи ниже.
-              </p>
-            </div>
           </div>
         </motion.div>
       </div>

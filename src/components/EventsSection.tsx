@@ -1,6 +1,7 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { HERO_EVENT_PREVIEW } from "@/lib/event-preview";
+import { Link } from "react-router-dom";
 
 const EventsSection = () => {
   const ref = useRef(null);
@@ -54,9 +55,12 @@ const EventsSection = () => {
             <p className="text-sm text-muted-foreground">
               Музей-квартира академика Н.П. Бехтеревой
             </p>
-            <span className="mt-6 inline-flex self-start rounded-full border border-border bg-background/70 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-muted-foreground">
-              Завершено
-            </span>
+            <Link
+              to="/events/first-report"
+              className="mt-6 inline-flex self-start border border-foreground px-8 py-3 text-xs font-medium uppercase tracking-[0.2em] text-foreground transition-all hover:bg-foreground hover:text-background"
+            >
+              Как это было
+            </Link>
           </div>
 
           {/* Вторая встреча */}

@@ -1,5 +1,6 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import { HERO_EVENT_PREVIEW } from "@/lib/event-preview";
 
 const EventsSection = () => {
   const ref = useRef(null);
@@ -62,7 +63,7 @@ const EventsSection = () => {
           <div className="flex flex-col rounded-sm border border-foreground bg-background p-8">
             <div>
               <p className="mb-1 text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">
-                Вторая встреча из цикла
+                {HERO_EVENT_PREVIEW.label} из цикла
               </p>
               <h3 className="text-serif mb-4 text-xl font-light text-foreground md:text-2xl">
                 Живые разговоры о смерти
@@ -71,7 +72,9 @@ const EventsSection = () => {
                 С врачом-психиатром <strong>Натальей Бехтеревой</strong> и{" "}
                 <strong>Ярославом Красновым</strong>
               </p>
-              <p className="mt-4 text-sm font-medium text-foreground">30 марта</p>
+              <p className="mt-4 text-sm font-medium text-foreground">
+                {HERO_EVENT_PREVIEW.date}
+              </p>
               <p className="text-sm text-muted-foreground">
                 Музей-квартира академика Н.П. Бехтеревой
               </p>

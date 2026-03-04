@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { Volume2, VolumeX } from "lucide-react";
+import { ArrowRight, Volume2, VolumeX } from "lucide-react";
+import { HERO_EVENT_PREVIEW } from "@/lib/event-preview";
 
 const HeroSection = () => {
   const [isMuted, setIsMuted] = useState(true);
@@ -85,6 +86,20 @@ const HeroSection = () => {
       <div className="absolute inset-0 bg-gradient-to-b from-ocean-deep/40 via-transparent to-ocean-deep/80" />
 
       <div className="relative z-10 flex h-full flex-col items-center justify-center px-6 text-center">
+        <motion.a
+          href={HERO_EVENT_PREVIEW.anchor}
+          aria-label="Перейти к разделу Мероприятия"
+          initial={{ opacity: 0, scale: 0.98 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6, delay: 0.35 }}
+          className="group mb-6 inline-flex max-w-[calc(100vw-2rem)] items-center gap-2 rounded-full border border-ocean-light/40 bg-ocean-deep/35 px-4 py-2 text-[11px] font-medium uppercase tracking-[0.18em] text-primary-foreground backdrop-blur-sm transition-colors hover:border-ocean-light/70 hover:bg-ocean-deep/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ocean-light/70 focus-visible:ring-offset-2 focus-visible:ring-offset-ocean-deep md:text-xs"
+        >
+          <span className="whitespace-normal">
+            {HERO_EVENT_PREVIEW.label} • {HERO_EVENT_PREVIEW.date}
+          </span>
+          <ArrowRight className="size-3.5 shrink-0 opacity-80 transition-transform group-hover:translate-x-0.5" />
+        </motion.a>
+
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}

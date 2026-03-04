@@ -72,6 +72,19 @@
         ]
       }
     </script>
+
+    <script>
+      (function restoreGithubPagesSpaRoute(l) {
+        if (!l.search || l.search[1] !== "/") return;
+
+        var decoded = l.search
+          .slice(1)
+          .replace(/~and~/g, "&");
+
+        var route = l.pathname.slice(0, -1) + decoded + l.hash;
+        window.history.replaceState(null, "", route);
+      })(window.location);
+    </script>
   </head>
 
   <body>

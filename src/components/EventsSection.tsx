@@ -63,7 +63,7 @@ const EventsSection = () => {
           <div className="flex flex-col rounded-sm border border-foreground bg-background p-8">
             <div>
               <p className="mb-1 text-xs font-medium uppercase tracking-[0.2em] text-muted-foreground">
-                {HERO_EVENT_PREVIEW.label} из цикла
+                Вторая встреча из цикла
               </p>
               <h3 className="text-serif mb-4 text-xl font-light text-foreground md:text-2xl">
                 Живые разговоры о смерти

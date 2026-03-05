@@ -79,7 +79,22 @@ const EventFirstReport = () => {
                   index === 0 ? "text-xl md:text-2xl" : "text-lg md:text-xl"
                 }`}
               >
-                {paragraph}
+                {index === FIRST_EVENT_REPORT_TEXT.length - 1 ? (
+                  <>
+                    Мы готовим продолжение цикла «Живые разговоры о смерти»,{" "}
+                    <a
+                      href="https://kky-event.timepad.ru/event/3851932/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="underline decoration-border underline-offset-4 transition-colors hover:text-foreground"
+                    >
+                      следующая встреча состоится 30 марта
+                    </a>{" "}
+                    в Петербурге.
+                  </>
+                ) : (
+                  paragraph
+                )}
               </p>
             ))}
           </article>

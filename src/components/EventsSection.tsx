@@ -57,6 +57,7 @@ const EventsSection = () => {
             </p>
             <Link
               to="/events/first-report"
+              state={{ fromEventsSection: true }}
               className="mt-6 inline-flex self-start border border-foreground px-8 py-3 text-xs font-medium uppercase tracking-[0.2em] text-foreground transition-all hover:bg-foreground hover:text-background"
             >
               Как это было

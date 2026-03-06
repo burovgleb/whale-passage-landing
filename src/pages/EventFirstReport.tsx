@@ -1,11 +1,12 @@
 import { useEffect, useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from "@/components/ui/dialog";
 import { FIRST_EVENT_REPORT_IMAGES, FIRST_EVENT_REPORT_TEXT } from "@/lib/first-event-report";
 
 const EventFirstReport = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
   const isOpen = activeIndex !== null;
 
@@ -29,7 +30,12 @@ const EventFirstReport = () => {
   };
 
   const goBackToEvents = () => {
-    navigate(-1);
+    if (location.state?.fromEventsSection === true) {
+      navigate(-1);
+      return;
+    }
+
+    navigate("/#events", { replace: false });
   };
 
   useEffect(() => {

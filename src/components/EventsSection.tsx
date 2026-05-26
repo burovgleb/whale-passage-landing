@@ -74,18 +74,19 @@ const EventsSection = () => {
                 Живые разговоры о смерти
               </h3>
               <p className="text-serif text-base leading-relaxed text-foreground">
-                С врачом-психиатром <strong>Натальей Бехтеревой</strong> и{" "}
-                <strong>Ярославом Красновым</strong>
+                С <strong>Мистером Малым</strong>,{" "}
+                <strong>Натальей Бехтеревой</strong> и{" "}
+                <strong>Дашей Буровой</strong>
               </p>
               <p className="mt-4 text-sm font-medium text-foreground">
                 {HERO_EVENT_PREVIEW.date}
               </p>
               <p className="text-sm text-muted-foreground">
-                Музей-квартира академика Н.П. Бехтеревой
+                Севкабель Порт
               </p>
             </div>
             <a
-              href="https://kky-event.timepad.ru/event/3851932/"
+              href="https://kky-event.timepad.ru/event/3971278/"
               target="_blank"
               rel="noopener noreferrer"
               className="mt-6 inline-flex self-start border border-foreground px-8 py-3 text-xs font-medium uppercase tracking-[0.2em] text-foreground transition-all hover:bg-foreground hover:text-background"

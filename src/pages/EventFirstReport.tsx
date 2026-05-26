@@ -89,14 +89,14 @@ const EventFirstReport = () => {
                   <>
                     Мы готовим продолжение цикла «Живые разговоры о смерти»,{" "}
                     <a
-                      href="https://kky-event.timepad.ru/event/3851932/"
+                      href="https://kky-event.timepad.ru/event/3971278/"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="underline decoration-border underline-offset-4 transition-colors hover:text-foreground"
                     >
-                      следующая встреча состоится 30 марта
+                      следующая встреча состоится 19 июня 2026
                     </a>{" "}
-                    в Петербурге.
+                    в Севкабель Порту.
                   </>
                 ) : (
                   paragraph

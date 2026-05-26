@@ -1,5 +1,5 @@
 export const HERO_EVENT_PREVIEW = {
   label: "Живые разговоры о смерти",
-  date: "30 марта",
+  date: "19 июня 2026",
   anchor: "#events",
 } as const;
